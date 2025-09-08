@@ -68,7 +68,7 @@ class SpecialAscii:
 class Logger:
     colorized={DEBUG:SpecialAscii.bright_cyan+"DEBUG"+SpecialAscii.reset,INFO:SpecialAscii.bright_green+"INFO"+SpecialAscii.reset,WARNING:SpecialAscii.bright_yellow+"WARNING"+SpecialAscii.reset,ERROR:SpecialAscii.red+"ERROR"+SpecialAscii.reset,CRITICAL:SpecialAscii.bright_white+SpecialAscii.bg_red+"CRITICAL"+SpecialAscii.reset,UNKNOWN:SpecialAscii.white + SpecialAscii.bg_purple+"UNKNOWN"+SpecialAscii.reset}
     non_colorized={DEBUG:"DEBUG",INFO:"INFO",WARNING:"WARNING",ERROR:"ERROR",CRITICAL:"CRITICAL",UNKNOWN:"UNKNOWN"}
-    def __init__(self,name:str=__name__,log_level:int=INFO,color:bool=True,std_out=stdout,std_err=stderr):
+    def __init__(self,name:str,log_level:int=INFO,color:bool=True,std_out=stdout,std_err=stderr):
         self.__name=name
         self.__textmap=self.colorized if color else self.non_colorized
         self.__level=log_level

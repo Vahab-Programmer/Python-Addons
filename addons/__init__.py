@@ -1,3 +1,3 @@
 from .classes import *
 author="Vahab Programmer https://github.com/Vahab-Programmer"
-version="1.0.0"
+version="1.0.1"
