@@ -6,17 +6,17 @@ like **Overriding**
 the class uses Type Hints for Overriding
 sample of Overriding in python
 
-    from addons import Override
+    from addons import Overload
 
-    @Override # Always Need Type Hint
+    @Overload # Always Need Type Hint
     def printer(data:str)->None:
         print("String Data:",data)
 
-    @printer.override # automate overriding using Type Hint
+    @printer.overload # automate overriding using Type Hint
     def printer_int(data:int)->None:
         print("Integer Data:",data)
 
-    @printer.override_manual(float)
+    @printer.overload_manual(float)
     def printer_float(data)->None:
         print("Float Data:",data)
 

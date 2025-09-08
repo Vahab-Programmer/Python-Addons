@@ -9,14 +9,14 @@ class Overload:
     def __init__(self,function):
         self.__funcmap={}
         self.__default=function
-        self.override(function)
-    def override(self,function):
+        self.overload(function)
+    def overload(self,function):
         args = function.__annotations__.copy()
         args.pop("return",None)
         args = tuple(args.values())
         self.__funcmap[args] = function
         return function
-    def override_manual(self,*args):
+    def overload_manual(self,*args):
         args=tuple([arg.__class__ if type(arg) != type else arg for arg in args])
         funcmap=self.__funcmap
         def wrapper(function):
