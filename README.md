@@ -1,10 +1,10 @@
 # Python Add-ons
 I programmed This Module for python which<br>
 add some ability python don`t have<br>
-like **Overriding**
-## Overriding
-the class uses Type Hints for Overriding
-sample of Overriding in python
+like **Overloading**
+## Overloading
+the class uses Type Hints for Overloading
+sample of Overloading in python
 
     from addons import Overload
 
