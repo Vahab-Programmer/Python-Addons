@@ -5,7 +5,7 @@ WARNING=3
 ERROR=4
 CRITICAL=5
 UNKNOWN=6
-class Override:
+class Overload:
     def __init__(self,function):
         self.__funcmap={}
         self.__default=function
