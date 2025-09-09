@@ -77,12 +77,12 @@ class Logger:
         self.__level=log_level
         self.__stdout=std_out
         self.__stderr=std_err
-    def log(self,message:str,level:int)->None:
+    def log(self,*args,level:int=INFO,sep:str=' ',end="\n",flush:bool=False)->None:
         if level <self.__level:return
         time=datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         level_msg=self.__textmap.get(level)
         if not level_msg:level_msg=self.__textmap.get(UNKNOWN)
-        print("[{}] [{}] {}: {}".format(time,level_msg,self.__name,message),file=self.__stdout if level <=WARNING else self.__stderr)
+        print("[{}] [{}] {}: {}".format(time,level_msg,self.__name,(sep.join([str(arg) for arg in args]))),end=end,flush=flush,file=self.__stdout if level <=WARNING else self.__stderr)
 class ThreadReturn(Thread):
     def __init__(self, group=None, target=None, name=None,args=(), kwargs=None, *, daemon=None):
         super().__init__(group=group,target=target,name=name,args=args,kwargs=kwargs,daemon=daemon)

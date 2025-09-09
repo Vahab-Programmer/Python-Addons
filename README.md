@@ -33,13 +33,14 @@ sample of logging in python using **Logger**
 
     from addons import Logger,DEBUG,INFO,WARNING,ERROR,CRITICAL,UNKNOWN
 
-    logger=Logger(log_level=DEBUG)
-    logger.log("This is A Debug Message",DEBUG)
-    logger.log("This is A Info Message",INFO)
-    logger.log("This is A Warning Message",WARNING)
-    logger.log("This is A Error Message",ERROR)
-    logger.log("This is A Critical Message",CRITICAL)
-    logger.log("This is A Unknown Message",UNKNOWN)
+    logger=Logger("Python addons",log_level=DEBUG)
+    logger.log("This is A Debug Message",level=DEBUG)
+    logger.log("This is A Info Message")
+    logger.log("This is A Warning Message",level=WARNING)
+    logger.log("This is A Error Message",level=ERROR)
+    logger.log("This is A Critical Message",level=CRITICAL)
+    logger.log("This is A Unknown Message",level=UNKNOWN)
+    logger.log("multiply","Message",123,[1,2,3],level=DEBUG)
 
 ## Thread With Return
 sample of creating and getting the Thread return using **ThreadReturn**
