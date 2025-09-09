@@ -1,4 +1,4 @@
-from .imports import stdout,stderr,datetime
+from .imports import stdout,stderr,datetime,Thread
 DEBUG=1
 INFO=2
 WARNING=3
@@ -9,25 +9,28 @@ class Overload:
     def __init__(self,function):
         self.__funcmap={}
         self.__default=function
+        self.__return_function=True
         self.overload(function)
     def overload(self,function):
         args = function.__annotations__.copy()
         args.pop("return",None)
         args = tuple(args.values())
         self.__funcmap[args] = function
-        return function
+        return function if self.__return_function else None
     def overload_manual(self,*args):
         args=tuple([arg.__class__ if type(arg) != type else arg for arg in args])
         funcmap=self.__funcmap
+        return_function=self.__return_function
         def wrapper(function):
             funcmap[args]=function
-            return function
+            return function if return_function else None
         return wrapper
     def default(self,function)->None:self.__default=function
     def __call__(self, *args, **kwargs) -> any:
         arg = [type(a) for a in args] + [type(k) for k in kwargs.values()]
         func = self.__funcmap.get(tuple(arg), self.__default)
         return func(*args, **kwargs) if func else None
+    def return_function(self,status:bool)->None:self.__return_function=status
 class SpecialAscii:
     reset = "\033[0m"
     bold = "\033[1m"
@@ -80,3 +83,10 @@ class Logger:
         level_msg=self.__textmap.get(level)
         if not level_msg:level_msg=self.__textmap.get(UNKNOWN)
         print("[{}] [{}] {}: {}".format(time,level_msg,self.__name,message),file=self.__stdout if level <=WARNING else self.__stderr)
+class ThreadReturn(Thread):
+    def __init__(self, group=None, target=None, name=None,args=(), kwargs=None, *, daemon=None):
+        super().__init__(group=group,target=target,name=name,args=args,kwargs=kwargs,daemon=daemon)
+        self.return_value=None
+        self._target=self.__runner
+        self.__target=target
+    def __runner(self,*args,**kwargs)->None:self.return_value=self.__target(*args,**kwargs)
